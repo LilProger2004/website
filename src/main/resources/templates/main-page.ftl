@@ -9,7 +9,10 @@
 </head>
 <body>
 <div>
-    <p>Mysite</p>
+    <p>${product.id}</p>
+    <p>${product.product_name}</p>
+    <p>${product.product_price}</p>
+    <p>${product.product_describe}</p>
 </div>
 </body>
 </html>
