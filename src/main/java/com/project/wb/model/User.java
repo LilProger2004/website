@@ -1,12 +1,21 @@
 package com.project.wb.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
+    public User(byte id_Role,String user_login, String user_password) {
+        this.id_Role = id_Role;
+        this.user_login = user_login;
+        this.user_password = user_password;
+    }
 
     public void setId(Long id) {
         this.id = id;
