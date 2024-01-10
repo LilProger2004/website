@@ -3,6 +3,7 @@ package com.project.wb.controller;
 import ch.qos.logback.core.model.Model;
 import com.project.wb.model.User;
 import com.project.wb.repo.UserServiceInreface;
+import com.project.wb.services.UserService;
 import lombok.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
     UserServiceInreface userServiceInreface;
     boolean flag = true;
+    UserService userService = new UserService();
 
     public MainController(UserServiceInreface userServiceInreface) {
         this.userServiceInreface = userServiceInreface;
@@ -30,6 +32,7 @@ public class MainController {
     @PostMapping("/register")
     public String SingUp(Model model, @NonNull @RequestParam String user_login, @NonNull @RequestParam String user_password, @NonNull @RequestParam String user_email) {
         Iterable<User> userList = userServiceInreface.findAll();
+        userService.bringingTheDatabaseIntoProperForm(userList,userServiceInreface);
         for (User testUser :
                 userList) {
             if (testUser.getUser_login() != null && testUser.getUser_email() != null) {
@@ -64,10 +67,5 @@ public class MainController {
         }
 
         return "Sorry";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
     }
 }
