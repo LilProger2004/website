@@ -28,15 +28,16 @@
         <form method="post">
             <h1>Login Form</h1>
             <div>
-                <input type="text" placeholder="Username" required="" id="username" name="user_login"/>
+                <input type="text" placeholder="Username" required="required" id="username" name="user_login"/>
             </div>
             <div>
-                <input type="password" placeholder="Password" required="" id="password" name="user_password"/>
+                <input type="text" placeholder="Email" required="required" id="username" name="user_email"/>
             </div>
             <div>
-                <input type="submit" value="Log in" />
-                <a href="#">Lost your password?</a>
-                <a href="/register">Register</a>
+                <input type="password" placeholder="Password" required="required" id="password" name="user_password"/>
+            </div>
+            <div>
+                <input type="submit" value="Register" />
             </div>
         </form><!-- form -->
 
