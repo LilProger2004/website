@@ -33,19 +33,18 @@ public class MainController {
     public String SingUp(Model model, @NonNull @RequestParam String user_login, @NonNull @RequestParam String user_password, @NonNull @RequestParam String user_email) {
         Iterable<User> userList = userServiceInreface.findAll();
         userService.bringingTheDatabaseIntoProperForm(userList,userServiceInreface);
+        String hashUserPassword = String.valueOf(user_password.hashCode());
         for (User testUser :
                 userList) {
-            if (testUser.getUser_login() != null && testUser.getUser_email() != null) {
                 if ((user_login.equals(testUser.getUser_login())) && user_email.equals(testUser.getUser_email())) {
                     flag = false;
                     break;
                 }
-            }
         }
         if (flag) {
             User newUser = new User();
             newUser.setUser_login(user_login);
-            newUser.setUser_password(user_password);
+            newUser.setUser_password(hashUserPassword);
             newUser.setUser_email(user_email);
             userServiceInreface.save(newUser);
             return "redirect:/opoo";
@@ -58,12 +57,9 @@ public class MainController {
         Iterable<User> userList = userServiceInreface.findAll();
         for (User testUser :
                 userList) {
-            if (testUser.getUser_login() != null && testUser.getUser_password() != null) {
                 if (user_login.equals(testUser.getUser_login()) && user_password.equals(testUser.getUser_password())) {
                     return "redirect:/opoo";
                 }
-            }
-
         }
 
         return "Sorry";
