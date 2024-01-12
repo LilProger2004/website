@@ -6,17 +6,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    public void bringingTheDatabaseIntoProperForm(Iterable<User> userList, UserServiceInreface userServiceInreface) {
-        for (User eachUser:
-                userList) {
-            if (eachUser.getUser_email() == null || eachUser.getUser_email().isEmpty()){
-                eachUser.setUser_email("Default");
-                userServiceInreface.save(eachUser);
-            }
-            if (eachUser.getUser_login() == null || eachUser.getUser_login().isEmpty()) {
-                eachUser.setUser_login("Default");
-                userServiceInreface.save(eachUser);
-            }
+    public byte bringingTheDatabaseIntoProperForm(User eachUser, UserServiceInreface userServiceInreface) {
+        byte changeCode= 0;
+        if (eachUser.getUser_email() == null || eachUser.getUser_email().isEmpty()) {
+            eachUser.setUser_email("Default");
+            userServiceInreface.save(eachUser);
+            changeCode ++;
         }
+        if (eachUser.getUser_login() == null || eachUser.getUser_login().isEmpty()) {
+            eachUser.setUser_login("Default");
+            userServiceInreface.save(eachUser);
+            changeCode++;
+        }
+        if (eachUser.getUser_name() == null || eachUser.getUser_name().isEmpty()) {
+            eachUser.setUser_name("Default");
+            userServiceInreface.save(eachUser);
+            changeCode++;
+        }
+        if (eachUser.getUser_password() == null || eachUser.getUser_password().isEmpty()) {
+            eachUser.setUser_password("Default");
+            userServiceInreface.save(eachUser);
+            changeCode++;
+        }
+        return changeCode;
     }
 }
+

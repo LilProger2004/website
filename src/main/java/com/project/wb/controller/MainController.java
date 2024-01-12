@@ -20,19 +20,24 @@ public class MainController {
 
     @GetMapping("/")
     public String logingPageGet(org.springframework.ui.Model model) {
-        return "WelcomePage";
+        return "SignIn";
     }
 
     @GetMapping("/register")
     public String registrationPageGet(org.springframework.ui.Model model) {
-        return "reg";
+        return "SignUp";
     }
+    @GetMapping("/AnyException")
+    public String exceptionPage(Model model){
+        return "Sorry";
+    }
+
 
 
     @PostMapping("/register")
     public String SingUp(Model model, @NonNull @RequestParam String user_login, @NonNull @RequestParam String user_password, @NonNull @RequestParam String user_email) {
         Iterable<User> userList = userServiceInreface.findAll();
-        userService.bringingTheDatabaseIntoProperForm(userList,userServiceInreface);
+        //userService.bringingTheDatabaseIntoProperForm(userList,userServiceInreface);
         String hashUserPassword = String.valueOf(user_password.hashCode());
         for (User testUser :
                 userList) {
@@ -47,7 +52,7 @@ public class MainController {
             newUser.setUser_password(hashUserPassword);
             newUser.setUser_email(user_email);
             userServiceInreface.save(newUser);
-            return "redirect:/opoo";
+            return "redirect:/PersonalAccount/"+newUser.getId().toString();
         }
         return "Sorry";
     }
@@ -58,7 +63,7 @@ public class MainController {
         for (User testUser :
                 userList) {
                 if (user_login.equals(testUser.getUser_login()) && user_password.equals(testUser.getUser_password())) {
-                    return "redirect:/opoo";
+                    return "redirect:/PersonalAccount/"+testUser.getId().toString();
                 }
         }
 
