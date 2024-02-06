@@ -3,6 +3,7 @@ package com.project.wb.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -18,11 +19,19 @@ public class Product {
     private double product_price;
     private String product_describe;
 
-    public Product(Long id, String product_name, double product_price, String product_describe) {
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    @Getter
+    private int user_id;
+
+    public Product(Long id, String product_name, double product_price, String product_describe, int user_id) {
         this.id = id;
         this.product_name = product_name;
         this.product_price = product_price;
         this.product_describe = product_describe;
+        this.user_id = user_id;
     }
     public Product(){};
 

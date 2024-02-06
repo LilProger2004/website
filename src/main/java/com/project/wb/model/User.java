@@ -24,7 +24,7 @@ public class User {
     public Long getId() {
         return id;
     }
-    private int id_Product;
+
     private byte id_Role;
     private byte id_Status;
     private String user_name;
@@ -32,9 +32,8 @@ public class User {
     private String user_password;
     private String user_email;
 
-    public User(Long id, int id_Product, byte id_Role, byte id_Status, String user_name, String user_login, String user_password, String user_email) {
+    public User(Long id, byte id_Role, byte id_Status, String user_name, String user_login, String user_password, String user_email) {
         this.id = id;
-        this.id_Product = id_Product;
         this.id_Role = id_Role;
         this.id_Status = id_Status;
         this.user_name = user_name;
@@ -76,14 +75,6 @@ public class User {
     }
 
     public User(){};
-
-    public int getId_Product() {
-        return id_Product;
-    }
-
-    public void setId_Product(int id_Product) {
-        this.id_Product = id_Product;
-    }
 
     public byte getId_Role() {
         return id_Role;

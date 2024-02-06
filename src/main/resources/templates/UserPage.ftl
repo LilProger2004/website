@@ -10,5 +10,10 @@
 <body>
 <h1>Welcome,${userData.user_name}</h1>
 <p>Your login : ${userData.user_login}</p>
+<p>Your email : ${userData.user_email}</p>
+<p>Your product(s) information :</p>
+<#list products as product>
+   <p>${product.id} , ${product.product_name} , ${product.product_describe} , ${product.product_price}</p>
+</#list>
 </body>
 </html>
