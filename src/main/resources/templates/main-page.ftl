@@ -7,8 +7,6 @@
     <title>Student Template</title>
 </head>
 <body>
-<#list product as product>
-    ${product.id},${product.product_name},${product.product_describe},${product.product_price}
-</#list>
+Hello it's main-page
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.project.wb.model;
+package com.project.dropping.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

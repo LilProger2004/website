@@ -1,6 +1,6 @@
-package com.project.wb.repo;
+package com.project.dropping.repo;
 
-import com.project.wb.model.Product;
+import com.project.dropping.model.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
