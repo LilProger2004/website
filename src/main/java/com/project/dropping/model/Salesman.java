@@ -6,15 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
-
 @Entity
-public class User {
+public class Salesman {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public User(byte id_Role, String user_login, String user_password) {
+    public Salesman(byte id_Role, String user_login, String user_password) {
         this.id_Role = id_Role;
         this.user_login = user_login;
         this.user_password = user_password;
@@ -48,7 +47,7 @@ public class User {
     @Getter
     private String number_items_purchased;
 
-    public User(Long id, byte id_Role, byte id_Status, String user_name, String user_login, String user_password, String user_email, String mobile_number, String city, String country, String user_hash, double amount_spent, String number_items_purchased) {
+    public Salesman(Long id, byte id_Role, byte id_Status, String user_name, String user_login, String user_password, String user_email, String mobile_number, String city, String country, String user_hash, double amount_spent, String number_items_purchased) {
         this.id = id;
         this.id_Role = id_Role;
         this.id_Status = id_Status;
@@ -99,7 +98,7 @@ public class User {
         this.user_email = user_email;
     }
 
-    public User() {
+    public Salesman() {
     }
 
     ;
@@ -121,3 +120,4 @@ public class User {
     }
 
 }
+

@@ -30,7 +30,7 @@ public class MainController {
 
     @GetMapping("/login")
     public String loggingPageGet(org.springframework.ui.Model model) {
-        return "SignIn";
+        return "SignIn2";
     }
 
     @GetMapping("/register")
@@ -43,6 +43,11 @@ public class MainController {
         return "Sorry";
     }
 
+
+@GetMapping("/SignInException")
+public String signInExcHandler(){
+        return "SorrySignIn";
+}
 
     @PostMapping("/register")
     public String SingUp(Model model, @NonNull @RequestParam String user_login, @NonNull @RequestParam String user_password, @NonNull @RequestParam String user_email) {
@@ -68,15 +73,15 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String SingIn(Model model, @NonNull @RequestParam String user_login, @NonNull @RequestParam String user_password) {
+    public String SingIn(Model model, @NonNull @RequestParam String user_email, @NonNull @RequestParam String user_password) {
         Iterable<User> userList = userServiceInterface.findAll();
         for (User testUser :
                 userList) {
-            if (user_login.equals(testUser.getUser_login()) && user_password.equals(testUser.getUser_password())) {
+            if (user_email.equals(testUser.getUser_email()) && user_password.equals(testUser.getUser_password())) {
                 return "redirect:/PersonalAccount/" + testUser.getId().toString();
             }
         }
 
-        return "Sorry";
+        return "redirect:/login";
     }
 }

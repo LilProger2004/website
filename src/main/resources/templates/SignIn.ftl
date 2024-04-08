@@ -15,7 +15,7 @@
         <form method="post">
             <h1>Login Form</h1>
             <div>
-                <input type="text" placeholder="Username" required="" id="username" name="user_login"/>
+                <input type="text" placeholder="Username" required="" id="username" name="user_email"/>
             </div>
             <div>
                 <input type="password" placeholder="Password" required="" id="password" name="user_password"/>

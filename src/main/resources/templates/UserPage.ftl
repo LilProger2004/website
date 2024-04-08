@@ -11,9 +11,15 @@
 <h1>${userData.user_name}</h1>
 <p>Your login : ${userData.user_login}</p>
 <p>Your email : ${userData.user_email}</p>
+<p>${userData.mobile_number}</p>
 <p>Your product(s) information :</p>
 <#list products as product>
-   <p>${product.id} , ${product.product_name} , ${product.product_describe} , ${product.product_price}</p>
+    <div class="product-item">
+        <div class="product-image"></div>
+        <div class="product-name">${product.product_name}</div>
+        <div class="product-price">${product.product_price}</div>
+        <a href="#" class="product-link">Подробнее</a>
+    </div>
 </#list>
 </body>
 </html>
