@@ -39,9 +39,6 @@ public class Product {
     int productCount;
 
     @ManyToOne
-    Buyer buyer;
-
-    @ManyToOne
     Seller seller;
 
     @OneToMany(mappedBy = "product")

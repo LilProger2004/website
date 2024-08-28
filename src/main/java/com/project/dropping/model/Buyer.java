@@ -53,7 +53,7 @@ public class Buyer {
     @Column(name = "buyer_hash")
     String buyerHash;
 
-    @OneToMany(mappedBy = "buyer",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     List<Product> purchasedProducts;
 
     @OneToMany(mappedBy = "buyer")
