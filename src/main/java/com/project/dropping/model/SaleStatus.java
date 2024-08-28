@@ -1,28 +1,25 @@
 package com.project.dropping.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "sale_status")
 public class SaleStatus {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_sale_status;
+    @Column(name = "id", nullable = false)
+    Long id;
 
-    public void setId_sale_status(Long idSaleStatus) {
-        this.id_sale_status = idSaleStatus;
-    }
-
-    public void setSaleStatus_name(String saleStatus_name) {
-        this.saleStatus_name = saleStatus_name;
-    }
-
-    private String saleStatus_name;
-
-    public SaleStatus() {
-    }
+    @Column(name = "sale_status_name", nullable = false)
+    String saleStatusName;
 }
