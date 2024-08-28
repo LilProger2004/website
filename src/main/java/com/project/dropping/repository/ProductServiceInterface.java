@@ -1,4 +1,4 @@
-package com.project.dropping.repo;
+package com.project.dropping.repository;
 
 import com.project.dropping.model.Product;
 import org.springframework.data.repository.CrudRepository;
