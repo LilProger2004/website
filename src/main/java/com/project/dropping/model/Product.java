@@ -1,55 +1,49 @@
 package com.project.dropping.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+import java.util.List;
+
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "product")
 public class Product {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "product_id", nullable = false)
+    String productId;
 
-    private String product_name;
-    private int id_Category;
+    @Column(name = "product_name", nullable = false)
+    String productName;
 
-    public void setId_Category(int id_Category) {
-        this.id_Category = id_Category;
-    }
+    @ManyToOne
+    Category category;
 
-    private double product_price;
-    private String product_describe;
+    @Column(name = "product_price", nullable = false)
+    double productPrice;
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
+    @Column(name = "product_discribe", nullable = false)
+    String productDescribe;
 
-    @Getter
-    private int user_id;
+    @Column(name = "product_count", nullable = false)
+    int productCount;
 
-    public Product(Long id, String product_name, double product_price, String product_describe, int user_id,int id_Category) {
-        this.id = id;
-        this.product_name = product_name;
-        this.product_price = product_price;
-        this.product_describe = product_describe;
-        this.user_id = user_id;
-        this.id_Category = id_Category;
-    }
-    public Product(){};
+    @ManyToOne
+    Buyer buyer;
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
+    @ManyToOne
+    Seller seller;
 
-    public void setProduct_price(double product_price) {
-        this.product_price = product_price;
-    }
-
-    public void setProduct_describe(String product_describe) {
-        this.product_describe = product_describe;
-    }
+    @OneToMany(mappedBy = "product")
+    List<Sale> sales;
 }

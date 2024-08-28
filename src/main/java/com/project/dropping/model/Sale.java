@@ -11,13 +11,22 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "role")
-public class Role {
+@Table(name = "sale")
+public class Sale {
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     Long id;
 
-    @Column(name = "role_name", nullable = false)
-    String roleName;
+    @Column(name = "sale_id", nullable = false)
+    String saleId;
+
+    @ManyToOne
+    Buyer buyer;
+    @ManyToOne
+    Product product;
+    @ManyToOne
+    Seller seller;
+    @ManyToOne
+    SaleStatus saleStatus;
 }
