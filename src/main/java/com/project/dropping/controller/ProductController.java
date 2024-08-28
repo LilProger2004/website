@@ -1,33 +1,33 @@
 package com.project.dropping.controller;
 
 import com.project.dropping.model.Category;
-import com.project.dropping.repo.CategoryServiceInterface;
-import com.project.dropping.repo.ProductServiceInterface;
-import com.project.dropping.repo.UserServiceInterface;
 import com.project.dropping.model.Product;
+import com.project.dropping.repository.CategoryServiceInterface;
+import com.project.dropping.repository.ProductServiceInterface;
+import com.project.dropping.repository.UserServiceInterface;
+import com.project.dropping.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class ProductController {
 
-    ProductServiceInterface productServiceInterface;
-    UserServiceInterface userServiceInterface;
+  final ProductServiceInterface productServiceInterface;
 
-    CategoryServiceInterface categoryServiceInterface;
-    public ProductController(ProductServiceInterface productServiceInterface, UserServiceInterface userServiceInterface, CategoryServiceInterface categoryServiceInterface) {
-        this.productServiceInterface = productServiceInterface;
-        this.userServiceInterface = userServiceInterface;
-        this.categoryServiceInterface = categoryServiceInterface;
-    }
+  final UserServiceInterface userServiceInterface;
 
-    @GetMapping("/Products")
-    public String mainPageOfProduct(Model model){
-        Iterable<Product> products = productServiceInterface.findAll();
-        Iterable<Category> categories = categoryServiceInterface.findAll();
-        model.addAttribute("categories",categories);
-        model.addAttribute("products",products);
-        return "products-page";
-    }
+  final CategoryServiceInterface categoryServiceInterface;
+
+  final ProductService productService;
+  @GetMapping("/Products")
+  public String mainPageOfProduct(Model model) {
+    Iterable<Product> products = productServiceInterface.findAll();
+    Iterable<Category> categories = categoryServiceInterface.findAll();
+    model.addAttribute("categories", categories);
+    model.addAttribute("products", products);
+    return "products-page";
+  }
 }
