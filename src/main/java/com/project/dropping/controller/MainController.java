@@ -1,25 +1,31 @@
 package com.project.dropping.controller;
 
-import ch.qos.logback.core.model.Model;
 import com.project.dropping.model.Buyer;
-import com.project.dropping.repository.UserServiceInterface;
 import com.project.dropping.services.BuyerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("main/")
 @RequiredArgsConstructor
 public class MainController {
-  final UserServiceInterface userServiceInterface;
   final BuyerService buyerService;
   boolean flag = true;
-  @GetMapping("/")
+  @GetMapping("/w")
   public String welcomePageView() {
     return "start-page";
+  }
+
+  @GetMapping("/error")
+  public String getError(Model model) {
+    model.addAttribute("error",new Exception().getMessage());
+    return "error";
   }
 
   @GetMapping("/login")
@@ -28,7 +34,7 @@ public class MainController {
   }
 
   @GetMapping("/register")
-  public String registrationPageGet(org.springframework.ui.Model model) {
+  public String registrationPageGet(Model model) {
     return "SignUp";
   }
 
@@ -47,9 +53,8 @@ public class MainController {
       Model model,
       @NonNull @RequestParam String userLogin,
       @NonNull @RequestParam String userPassword,
-      @NonNull @RequestParam String userEmail,
-      @NonNull @RequestParam String userName) {
-    Iterable<Buyer> userList = userServiceInterface.findAll();
+      @NonNull @RequestParam String userEmail) {
+    Iterable<Buyer> userList = buyerService.findAll();
     // buyerService.bringingTheDatabaseIntoValidForm(userList,userServiceInreface);
     for (Buyer testBuyer : userList) {
       if ((userLogin.equals(testBuyer.getBuyerLogin()))
@@ -60,13 +65,13 @@ public class MainController {
     }
     if (flag) {
       Buyer newBuyer = new Buyer();
-      newBuyer.setBuyerId(userLogin);
-      newBuyer.setBuyerName(userName);
+      newBuyer.setBuyerId(userLogin+"5676767fnfj");
+      newBuyer.setBuyerName("youirpnhdas");
       newBuyer.setBuyerLogin(userLogin);
       newBuyer.setBuyerPassword(userPassword);
       newBuyer.setBuyerEmail(userEmail);
-      userServiceInterface.save(newBuyer);
-      return "redirect:/PersonalAccount/" + newBuyer.getBuyerLogin().toString();
+      buyerService.save(newBuyer);
+      return "redirect:/user/PersonalAccount/" + newBuyer.getBuyerLogin().toString();
     }
     return "Sorry";
   }
@@ -75,14 +80,18 @@ public class MainController {
   public String SingIn(
       @NonNull @RequestParam String user_email,
       @NonNull @RequestParam String user_password) {
-    Iterable<Buyer> userList = userServiceInterface.findAll();
+    Iterable<Buyer> userList = buyerService.findAll();
     for (Buyer testBuyer : userList) {
       if (user_email.equals(testBuyer.getBuyerEmail())
           && user_password.equals(testBuyer.getBuyerPassword())) {
-        return "redirect:/PersonalAccount/" + testBuyer.getBuyerLogin().toString();
+        return "redirect:/user/PersonalAccount/" + testBuyer.getBuyerLogin().toString();
       }
     }
+    return "redirect:/main/login";
+  }
 
-    return "redirect:/login";
+  @GetMapping("/testPage")
+  public String viewTestUser(Model model) {
+    return "SignIn2";
   }
 }
