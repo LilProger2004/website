@@ -103,4 +103,9 @@ public class BuyerServiceImplements implements BuyerService {
     public boolean existsByUserLogin(String buyerLogin) {
         return buyerRepository.existsByBuyerLogin(buyerLogin);
     }
+
+    @Override
+    public void save(Buyer buyer) {
+        buyerRepository.save(buyer);
+    }
 }
