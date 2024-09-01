@@ -18,4 +18,6 @@ public interface BuyerService {
     Buyer findByLogin(String buyerLogin);
 
     boolean existsByUserLogin(String buyerLogin);
+
+    void save(Buyer buyer);
 }
