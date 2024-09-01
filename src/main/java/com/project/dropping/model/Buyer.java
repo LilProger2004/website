@@ -53,11 +53,8 @@ public class Buyer {
     @Column(name = "buyer_hash")
     String buyerHash;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    List<Product> purchasedProducts;
-
-    @OneToMany(mappedBy = "buyer")
-    List<Sale> sales;
+    @OneToMany(mappedBy = "buyer",cascade = CascadeType.ALL)
+    List<Sale> purchasedProducts;
 
     public Buyer(String buyerId, Role buyerRole, String buyerLogin, String buyerPassword) {
         this.buyerId = buyerId;

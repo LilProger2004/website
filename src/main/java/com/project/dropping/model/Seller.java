@@ -53,6 +53,9 @@ public class Seller {
     @OneToMany(mappedBy = "seller")
     List<Product> sellerProducts;
 
+    @OneToMany(mappedBy = "seller")
+    List<Sale> saleProducts;
+
     @Column(name = "seller_hash")
     String sellerHash;
 }

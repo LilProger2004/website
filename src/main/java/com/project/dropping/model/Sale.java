@@ -23,10 +23,13 @@ public class Sale {
 
     @ManyToOne
     Buyer buyer;
+
     @ManyToOne
     Product product;
+
     @ManyToOne
     Seller seller;
+
     @ManyToOne
     SaleStatus saleStatus;
 }
