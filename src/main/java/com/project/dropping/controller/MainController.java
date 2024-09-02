@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
   final BuyerService buyerService;
   boolean flag = true;
-  @GetMapping("/w")
+  @GetMapping("/")
   public String welcomePageView() {
     return "start-page";
   }
@@ -65,7 +65,7 @@ public class MainController {
     }
     if (flag) {
       Buyer newBuyer = new Buyer();
-      newBuyer.setBuyerId(userLogin+"5676767fnfj");
+      newBuyer.setBuyerId(userLogin);
       newBuyer.setBuyerName("youirpnhdas");
       newBuyer.setBuyerLogin(userLogin);
       newBuyer.setBuyerPassword(userPassword);
@@ -76,19 +76,20 @@ public class MainController {
     return "Sorry";
   }
 
-  @PostMapping("/login")
+ /* @PostMapping("/login")
   public String SingIn(
-      @NonNull @RequestParam String user_email,
-      @NonNull @RequestParam String user_password) {
+      @NonNull @RequestParam String username,
+      @NonNull @RequestParam String password) {
     Iterable<Buyer> userList = buyerService.findAll();
     for (Buyer testBuyer : userList) {
-      if (user_email.equals(testBuyer.getBuyerEmail())
-          && user_password.equals(testBuyer.getBuyerPassword())) {
+      if (username.equals(testBuyer.getBuyerName())
+          && password.equals(testBuyer.getBuyerPassword())) {
+        System.out.println("method working");
         return "redirect:/user/PersonalAccount/" + testBuyer.getBuyerLogin().toString();
       }
     }
-    return "redirect:/main/login";
-  }
+    return "redirect:/";
+  }*/
 
   @GetMapping("/testPage")
   public String viewTestUser(Model model) {
