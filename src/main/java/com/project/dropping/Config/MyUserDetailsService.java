@@ -1,4 +1,4 @@
-package com.project.dropping.Config;
+package com.project.dropping.config;
 
 import com.project.dropping.model.Buyer;
 import com.project.dropping.repository.BuyerRepository;
