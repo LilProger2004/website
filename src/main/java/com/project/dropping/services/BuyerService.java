@@ -20,4 +20,6 @@ public interface BuyerService {
     boolean existsByUserLogin(String buyerLogin);
 
     void save(Buyer buyer);
+
+    boolean existByBuyerLoginAndEmail(String buyerLogin,String buyerEmail);
 }
