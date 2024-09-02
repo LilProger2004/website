@@ -25,16 +25,16 @@
 <body>
 <div class="container">
     <section id="content">
-        <form method="post">
+        <form action="user/PersonalAccount/" method="post">
             <h1>Login Form</h1>
             <div>
-                <input type="text" placeholder="Username" required="required" id="username" name="user_login"/>
+                <input type="text" placeholder="Username" required="required" id="username" name="userLogin"/>
             </div>
             <div>
-                <input type="text" placeholder="Email" required="required" id="username" name="user_email"/>
+                <input type="text" placeholder="Email" required="required" id="username" name="userEmail"/>
             </div>
             <div>
-                <input type="password" placeholder="Password" required="required" id="password" name="user_password"/>
+                <input type="password" placeholder="Password" required="required" id="password" name="userPassword"/>
             </div>
             <div>
                 <input type="submit" value="Register" />
