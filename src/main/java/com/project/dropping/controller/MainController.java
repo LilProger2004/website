@@ -2,6 +2,7 @@ package com.project.dropping.controller;
 
 import com.project.dropping.model.Buyer;
 import com.project.dropping.services.BuyerService;
+import com.project.dropping.services.RoleService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,12 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("main/")
 @RequiredArgsConstructor
 public class MainController {
+
   final BuyerService buyerService;
-  boolean flag = true;
+
+  final RoleService roleService;
+
   @GetMapping("/")
   public String welcomePageView() {
     return "start-page";
@@ -56,17 +62,11 @@ public class MainController {
       @NonNull @RequestParam String userPassword,
       @NonNull @RequestParam String userEmail) {
     // buyerService.bringingTheDatabaseIntoValidForm(userList,userServiceInreface);
-    if (buyerService.existByBuyerLoginAndEmail(userLogin,userEmail)) {
-      Buyer newBuyer = new Buyer();
-      newBuyer.setBuyerId(buyerService.hashMD5(userLogin));
-      newBuyer.setBuyerName("lary");
-      newBuyer.setBuyerLogin(userLogin);
-      newBuyer.setBuyerPassword(new BCryptPasswordEncoder().encode(userPassword));
-      newBuyer.setBuyerEmail(userEmail);
-      buyerService.save(newBuyer);
-      return "redirect:/user/PersonalAccount/" + newBuyer.getBuyerLogin().toString();
+    if (!buyerService.existByBuyerLoginAndEmail(userLogin,userEmail)) {
+      buyerService.save(new Buyer(UUID.randomUUID() + buyerService.hashMD5(userLogin),userEmail,userLogin,userLogin,new BCryptPasswordEncoder().encode(userPassword),roleService.getUserRole()));
+      return "redirect:/main/login";
     }
-    return "Sorry";
+    return "redirect:/main/AnyException";
   }
 
  /* @PostMapping("/login")

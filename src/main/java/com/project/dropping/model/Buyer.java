@@ -56,10 +56,12 @@ public class Buyer {
     @OneToMany(mappedBy = "buyer",cascade = CascadeType.ALL)
     List<Sale> purchasedProducts;
 
-    public Buyer(String buyerId, Role buyerRole, String buyerLogin, String buyerPassword) {
+    public Buyer(String buyerId,String buyerEmail,String buyerName, String buyerLogin, String buyerPassword,Role buyerRole) {
         this.buyerId = buyerId;
-        this.buyerRole = buyerRole;
+        this.buyerEmail = buyerEmail;
+        this.buyerName = buyerName;
         this.buyerLogin = buyerLogin;
         this.buyerPassword = buyerPassword;
+        this.buyerRole = buyerRole;
     }
 }

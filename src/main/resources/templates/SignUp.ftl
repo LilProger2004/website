@@ -1,31 +1,14 @@
 <!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <title>Login Form on HTML5</title>
-
-
-
-    <link rel="stylesheet" href="css/style.css">
-
-
-</head>
-
-<body>
-<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Paper Stack</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 <body>
 <div class="container">
     <section id="content">
-        <form action="user/PersonalAccount/" method="post">
+        <form method="post">
             <h1>Login Form</h1>
             <div>
                 <input type="text" placeholder="Username" required="required" id="username" name="userLogin"/>
