@@ -1,7 +1,7 @@
 package com.project.dropping.config;
 
-import com.project.dropping.model.Buyer;
-import com.project.dropping.repository.BuyerRepository;
+import com.project.dropping.model.Client;
+import com.project.dropping.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +14,11 @@ import java.util.Optional;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private BuyerRepository userRepo;
+    private ClientRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Buyer> user = userRepo.findByBuyerName(username);
+        Optional<Client> user = userRepo.findByClientName(username);
 
 
         return user.map(MyUserDetails::new)
