@@ -22,7 +22,7 @@ public class Sale {
     String saleId;
 
     @ManyToOne
-    Buyer buyer;
+    Client client;
 
     @ManyToOne
     Product product;
