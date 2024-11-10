@@ -1,9 +1,10 @@
 package com.project.dropping.services.impliments;
 
-import com.project.dropping.model.Buyer;
-import com.project.dropping.repository.BuyerRepository;
-import com.project.dropping.services.BuyerService;
+import com.project.dropping.model.Client;
+import com.project.dropping.repository.ClientRepository;
+import com.project.dropping.services.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -13,44 +14,49 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class BuyerServiceImplements implements BuyerService {
+public class ClientServiceImplements implements ClientService {
 
-    final BuyerRepository buyerRepository;
+    final ClientRepository clientRepository;
 
     @Override
-    public byte bringingTheDatabaseIntoValidForm(Buyer eachBuyer) {
+    public byte bringingTheDatabaseIntoValidForm(Client eachClient) {
         byte changeCode = 0;
-        if (eachBuyer.getBuyerEmail() == null || eachBuyer.getBuyerEmail().isEmpty()) {
-            eachBuyer.setBuyerEmail("Default");
-            buyerRepository.save(eachBuyer);
+        if (eachClient.getClientEmail() == null || eachClient.getClientEmail().isEmpty()) {
+            eachClient.setClientEmail("Default");
+            clientRepository.save(eachClient);
             changeCode++;
         }
-        if (eachBuyer.getBuyerLogin() == null || eachBuyer.getBuyerLogin().isEmpty()) {
-            eachBuyer.setBuyerLogin("Default");
-            buyerRepository.save(eachBuyer);
+        if (eachClient.getClientLogin() == null || eachClient.getClientLogin().isEmpty()) {
+            eachClient.setClientLogin("Default");
+            clientRepository.save(eachClient);
             changeCode++;
         }
-        if (eachBuyer.getBuyerName() == null || eachBuyer.getBuyerName().isEmpty()) {
-            eachBuyer.setBuyerName("Default");
-            buyerRepository.save(eachBuyer);
+        if (eachClient.getUsername() == null || eachClient.getUsername().isEmpty()) {
+            eachClient.setClientName("Default");
+            clientRepository.save(eachClient);
             changeCode++;
         }
-        if (eachBuyer.getBuyerPassword() == null || eachBuyer.getBuyerPassword().isEmpty()) {
-            eachBuyer.setBuyerPassword("Default");
-            buyerRepository.save(eachBuyer);
+        if (eachClient.getClientPassword() == null || eachClient.getClientPassword().isEmpty()) {
+            eachClient.setClientPassword("Default");
+            clientRepository.save(eachClient);
             changeCode++;
         }
         return changeCode;
     }
 
     @Override
-    public Buyer findById(Long id) {
-        return buyerRepository.findById(id).orElseThrow();
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public List<Buyer> findAll() {
-        return buyerRepository.findAll();
+    public UserDetailsService userDetailsService() {
+        return null;
+    }
+
+    @Override
+    public List<Client> findAll() {
+        return clientRepository.findAll();
     }
 
     @Override
@@ -94,23 +100,23 @@ public class BuyerServiceImplements implements BuyerService {
     }
 
     @Override
-    public Buyer findByLogin(String buyerLogin) {
+    public Client findByLogin(String clientLogin) {
 
-        return buyerRepository.findByBuyerLogin(buyerLogin);
+        return clientRepository.findByClientLogin(clientLogin);
     }
 
     @Override
-    public boolean existsByUserLogin(String buyerLogin) {
-        return buyerRepository.existsByBuyerLogin(buyerLogin);
+    public boolean existsByUserLogin(String clientLogin) {
+        return clientRepository.existsByClientLogin(clientLogin);
     }
 
     @Override
-    public void save(Buyer buyer) {
-        buyerRepository.save(buyer);
+    public void save(Client client) {
+        clientRepository.save(client);
     }
 
     @Override
-    public boolean existByBuyerLoginAndEmail(String buyerLogin, String buyerEmail) {
-        return buyerRepository.existsByBuyerLoginAndBuyerEmail(buyerLogin,buyerEmail);
+    public boolean existByBuyerLoginAndEmail(String clientLogin, String clientEmail) {
+        return clientRepository.existsByClientLoginAndClientEmail(clientLogin,clientEmail);
     }
 }
