@@ -1,10 +1,14 @@
 package com.project.dropping.config;
 
+import com.project.dropping.config.authjwt.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,12 +19,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
+/**
+ *
+ * Класс отвечающий за безопасность приложения
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    @Bean //возвращаем кастомный MyUserDetailsService, который напишем далее
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Bean //возвращаем кастомный MyUserDetailsService
     public UserDetailsService userDetailsService() {
         return new MyUserDetailsService();
     }
@@ -33,33 +49,46 @@ public class SecurityConfig {
         return provider;
     }
 
-    @Bean
+    @Bean //создание SecurityFilterChain это цепочка способов проверки запроса
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/main/**").permitAll() //вход без авторизации
-                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/client/**").authenticated()
                         .requestMatchers("/product/**").permitAll()
                         .requestMatchers("/").hasRole("USER")
                         .requestMatchers("/c/l").hasRole("SELLER")
-                        .anyRequest().permitAll()) //с авторизацией и аутентификацией
+                        .requestMatchers("/seller/add").hasRole("ADMIN")
+                        .requestMatchers("seller/**").permitAll()
+                        .anyRequest().permitAll())
                 .formLogin((form) -> form
                         .loginPage("/main/login")
                         .permitAll()
                         .defaultSuccessUrl("/main/")
                 )
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(LogoutConfigurer::permitAll)
                 .build();
     }
 
-    @Bean //Ставим степень кодировки, с которой кодировали пароль в базе
+
+    @Bean //кодирование пароля
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(5);
     }
 
-    @Bean
-    GrantedAuthorityDefaults grantedAuthorityDefaults(){
+
+    @Bean // метод который проводит аунтефикацию пользователя
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean // используется для удаления префикса "HAS-" при проверке роли
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults("");
     }
 }
