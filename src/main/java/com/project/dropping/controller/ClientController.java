@@ -1,7 +1,7 @@
 package com.project.dropping.controller;
 
-import com.project.dropping.model.Buyer;
-import com.project.dropping.services.BuyerService;
+import com.project.dropping.model.Client;
+import com.project.dropping.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("user/")
+@RequestMapping("client/")
 @RequiredArgsConstructor
-public class BuyerController {
-    final BuyerService buyerService;
+public class ClientController {
+    final ClientService clientService;
 
     @GetMapping("/PersonalAccount/{userLogin}")
-    public String userAccount(Model model, @PathVariable("userLogin") String userLogin) {
-        if (!buyerService.existsByUserLogin(userLogin)) {
+    public String viewUserInfo(Model model, @PathVariable("userLogin") String userLogin) {
+        if (!clientService.existsByUserLogin(userLogin)) {
             return "redirect:/AnyException";
         }
-        Buyer currentBuyer = buyerService.findByLogin(userLogin);
-        buyerService.bringingTheDatabaseIntoValidForm(currentBuyer);
-        model.addAttribute("userData", currentBuyer);
+        Client currentClient = clientService.findByLogin(userLogin);
+        clientService.bringingTheDatabaseIntoValidForm(currentClient);
+        model.addAttribute("userData", currentClient);
 
         return "userPageByReplitAI";
     }
