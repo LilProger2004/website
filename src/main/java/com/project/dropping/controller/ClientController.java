@@ -18,7 +18,7 @@ public class ClientController {
 
     @GetMapping("/PersonalAccount/{userLogin}")
     public String viewUserInfo(Model model, @PathVariable("userLogin") String userLogin) {
-        if (!clientService.existsByUserLogin(userLogin)) {
+        if (!clientService.existsByClientLogin(userLogin)) {
             return "redirect:/AnyException";
         }
         Client currentClient = clientService.findByLogin(userLogin);
