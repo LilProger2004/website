@@ -106,13 +106,14 @@ public class ClientServiceImplements implements ClientService {
     }
 
     @Override
-    public boolean existsByUserLogin(String clientLogin) {
+    public boolean existsByClientLogin(String clientLogin) {
         return clientRepository.existsByClientLogin(clientLogin);
     }
 
     @Override
-    public void save(Client client) {
-        clientRepository.save(client);
+    public String save(Client client) {
+       return clientRepository.save(client).getClientLogin();
+
     }
 
     @Override
