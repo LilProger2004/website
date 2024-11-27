@@ -20,9 +20,9 @@ public interface ClientService {
 
     Client findByLogin(String buyerLogin);
 
-    boolean existsByUserLogin(String buyerLogin);
+    boolean existsByClientLogin(String clientLogin);
 
-    void save(Client client);
+    String save(Client client);
 
     boolean existByBuyerLoginAndEmail(String buyerLogin,String buyerEmail);
 }
