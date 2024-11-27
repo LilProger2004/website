@@ -1,5 +1,7 @@
 package com.project.dropping.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties
 @Table(name = "client")
 public class Client implements UserDetails {
     @Id
@@ -35,9 +38,11 @@ public class Client implements UserDetails {
     String clientName;
 
     @Column(name = "client_login", nullable = false)
+    @JsonProperty("login")
     String clientLogin;
 
     @Column(name = "client_password", nullable = false)
+    @JsonProperty("password")
     String clientPassword;
 
     @Column(name = "client_email", nullable = false)
