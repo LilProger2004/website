@@ -13,13 +13,14 @@
     <h1>User Profile</h1>
     <div class="profile">
       <img src="profile_pic.jpg" alt="Profile Picture" style="width: 100px; height: 100px;">
-      <h2>${userData.user_name}</h2>
+      <h2>${userData.clientName}</h2>
     </div>
     <div class="info">
       <h3>Personal Information</h3>
-      <p><strong>Email:</strong> ${userData.user_email}</p>
-      <p><strong>Phone:</strong> ${userData.mobile_number}</p>
-      <p><strong>Role:</strong> User</p>
+      <p><strong>Email:</strong> ${userData.clientEmail}</p>
+      <p><strong>Phone:</strong> ${userData.clientMobileNumber}</p>
+      <p><strong>Role:</strong> ${userData.clientRole.roleName}</p>
+      <p><strong>JWT:</strong> ${userData.clientRefreshToken}</p>
     </div>
     <div class="info user-stats">
       <h3>User Statistics</h3>
