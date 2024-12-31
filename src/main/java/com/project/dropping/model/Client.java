@@ -7,9 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -19,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties
 @Table(name = "client")
-public class Client implements UserDetails {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -37,13 +34,13 @@ public class Client implements UserDetails {
     @Column(name = "client_name", nullable = false)
     String clientName;
 
-    @Column(name = "client_login", nullable = false)
-    @JsonProperty("login")
-    String clientLogin;
+    @Column(name = "username", nullable = false)
+    @JsonProperty("username")
+    String username;
 
-    @Column(name = "client_password", nullable = false)
+    @Column(name = "password", nullable = false)
     @JsonProperty("password")
-    String clientPassword;
+    String password;
 
     @Column(name = "client_email", nullable = false)
     String clientEmail;
@@ -60,50 +57,15 @@ public class Client implements UserDetails {
     @Column(name = "client_refresh_token")
     String clientRefreshToken;
 
-    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     List<Sale> purchasedProducts;
 
-    public Client(String clientId, String clientEmail, String clientName, String clientLogin, String clientPassword, Role clientRole) {
+    public Client(String clientId, String clientEmail, String clientName, String username, String password, Role clientRole) {
         this.clientId = clientId;
         this.clientEmail = clientEmail;
         this.clientName = clientName;
-        this.clientLogin = clientLogin;
-        this.clientPassword = clientPassword;
+        this.username = username;
+        this.password = password;
         this.clientRole = clientRole;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.clientPassword;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.clientLogin;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
     }
 }
