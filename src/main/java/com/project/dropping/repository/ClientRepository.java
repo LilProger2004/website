@@ -9,13 +9,13 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Client findByClientLogin(String clientLogin);
+    Client findByUsername(String username);
 
 
     Optional<Client> findByClientName(String clientName);
 
-    boolean existsByClientLoginAndClientEmail(String clientLogin, String clientEmail);
+    boolean existsByUsernameAndClientEmail(String username, String clientEmail);
 
-    @Query("select (count(c) > 0) from Client c where c.clientLogin = ?1")
-    boolean existsByClientLogin(String clientLogin);
+    @Query("select (count(c) > 0) from Client c where c.username = ?1")
+    boolean existsByClientLogin(String username);
 }
