@@ -1,19 +1,14 @@
 package com.project.dropping.controller;
 
-import com.project.dropping.model.Client;
+import com.project.dropping.config.auth.AuthenticationService;
 import com.project.dropping.services.ClientService;
 import com.project.dropping.services.RoleService;
-import lombok.NonNull;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.UUID;
 
 @Controller
 @RequestMapping("main/")
@@ -24,9 +19,11 @@ public class MainController {
 
   final RoleService roleService;
 
+  final AuthenticationService authenticationService;
+
   @GetMapping("/")
   public String welcomePageView() {
-    return "start-page";
+    return "main-page";
   }
 
   @GetMapping("/error")
@@ -38,6 +35,11 @@ public class MainController {
   @GetMapping("/login")
   public String loggingPageGet(org.springframework.ui.Model model) {
     return "SignIn2";
+  }
+
+  @GetMapping("/logout")
+  public String logoutPageGet(org.springframework.ui.Model model) {
+    return "start-page";
   }
 
   @GetMapping("/register")
@@ -55,7 +57,7 @@ public class MainController {
     return "SorrySignIn";
   }
 
-  @PostMapping("/register")
+  /*@PostMapping("/register")
   public String SingUp(
       Model model,
       @NonNull @RequestParam String userLogin,
@@ -63,29 +65,14 @@ public class MainController {
       @NonNull @RequestParam String userEmail) {
     // clientService.bringingTheDatabaseIntoValidForm(userList,userServiceInreface);
     if (!clientService.existByBuyerLoginAndEmail(userLogin,userEmail)) {
-      clientService.save(new Client(UUID.randomUUID() + clientService.hashMD5(userLogin),userEmail,userLogin,userLogin,new BCryptPasswordEncoder().encode(userPassword),roleService.getUserRole()));
+      clientService.save(new Client(UUID.randomUUID() + clientService.hashMD5(userLogin),userEmail,userLogin,userL,roleService.getUserRole()));
       return "redirect:/main/login";
     }
     return "redirect:/main/AnyException";
-  }
-
- /* @PostMapping("/login")
-  public String SingIn(
-      @NonNull @RequestParam String username,
-      @NonNull @RequestParam String password) {
-    Iterable<Client> userList = clientService.findAll();
-    for (Client testBuyer : userList) {
-      if (username.equals(testBuyer.getBuyerName())
-          && password.equals(testBuyer.getUserPassword())) {
-        System.out.println("method working");
-        return "redirect:/user/PersonalAccount/" + testBuyer.getBuyerLogin().toString();
-      }
-    }
-    return "redirect:/";
   }*/
 
   @GetMapping("/testPage")
-  public String viewTestUser(Model model) {
-    return "SignIn2";
+  public String viewTestUser(Model model, HttpServletResponse response) {
+    return "SignIn";
   }
 }
