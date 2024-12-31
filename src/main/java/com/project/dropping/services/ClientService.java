@@ -4,6 +4,7 @@ import com.project.dropping.model.Client;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientService {
 
@@ -18,11 +19,11 @@ public interface ClientService {
     public String hashSha256(String password);
     public String hashMD5(String input);
 
-    Client findByLogin(String buyerLogin);
+    Client findByLogin(String clientLogin);
+
+    Optional<Client> findByClientName(String clientName);
 
     boolean existsByClientLogin(String clientLogin);
 
     String save(Client client);
-
-    boolean existByBuyerLoginAndEmail(String buyerLogin,String buyerEmail);
 }

@@ -11,13 +11,13 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ClientServiceImplements implements ClientService {
 
     final ClientRepository clientRepository;
-
     @Override
     public byte bringingTheDatabaseIntoValidForm(Client eachClient) {
         byte changeCode = 0;
@@ -26,8 +26,8 @@ public class ClientServiceImplements implements ClientService {
             clientRepository.save(eachClient);
             changeCode++;
         }
-        if (eachClient.getClientLogin() == null || eachClient.getClientLogin().isEmpty()) {
-            eachClient.setClientLogin("Default");
+        if (eachClient.getUsername() == null || eachClient.getUsername().isEmpty()) {
+            eachClient.setUsername("Default");
             clientRepository.save(eachClient);
             changeCode++;
         }
@@ -36,8 +36,8 @@ public class ClientServiceImplements implements ClientService {
             clientRepository.save(eachClient);
             changeCode++;
         }
-        if (eachClient.getClientPassword() == null || eachClient.getClientPassword().isEmpty()) {
-            eachClient.setClientPassword("Default");
+        if (eachClient.getPassword() == null || eachClient.getPassword().isEmpty()) {
+            eachClient.setPassword("Default");
             clientRepository.save(eachClient);
             changeCode++;
         }
@@ -102,22 +102,22 @@ public class ClientServiceImplements implements ClientService {
     @Override
     public Client findByLogin(String clientLogin) {
 
-        return clientRepository.findByClientLogin(clientLogin);
+        return clientRepository.findByUsername(clientLogin);
     }
 
     @Override
-    public boolean existsByClientLogin(String clientLogin) {
-        return clientRepository.existsByClientLogin(clientLogin);
+    public Optional<Client> findByClientName(String clientName) {
+        return clientRepository.findByClientName(clientName);
+    }
+
+    @Override
+    public boolean existsByClientLogin(String username) {
+        return clientRepository.existsByClientLogin(username);
     }
 
     @Override
     public String save(Client client) {
-       return clientRepository.save(client).getClientLogin();
+        return clientRepository.save(client).getUsername();
 
-    }
-
-    @Override
-    public boolean existByBuyerLoginAndEmail(String clientLogin, String clientEmail) {
-        return clientRepository.existsByClientLoginAndClientEmail(clientLogin,clientEmail);
     }
 }
