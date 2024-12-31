@@ -10,4 +10,6 @@
 <body>
 Hello it's main-page
 </body>
+<a href="http://localhost:8081/main/logout">Выйти</a>
+
 </html>
