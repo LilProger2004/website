@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class FormatParser {
 
 
-    public String urlEncodedToJson(String urlEncodedString) throws JsonProcessingException {
+    public static String urlEncodedToJson(String urlEncodedString) throws JsonProcessingException {
 
         // Парсим данные в список NameValuePair
         List<NameValuePair> params = URLEncodedUtils.parse(urlEncodedString, StandardCharsets.UTF_8);
