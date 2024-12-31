@@ -44,7 +44,7 @@ public class MainController {
 
   @GetMapping("/welcome")
   public String welcomePageGet() {
-    return "logout";
+    return "start-page";
   }
 
   @GetMapping("/register")
