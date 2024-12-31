@@ -9,6 +9,5 @@
 </head>
 <body>
 <p>Welcome to us</p>
-<button href="/client/PersonalAccount/${login}"></button>
 </body>
 </html>
