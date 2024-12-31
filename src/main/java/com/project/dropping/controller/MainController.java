@@ -33,22 +33,27 @@ public class MainController {
   }
 
   @GetMapping("/login")
-  public String loggingPageGet(org.springframework.ui.Model model) {
+  public String loggingPageGet() {
     return "SignIn2";
   }
 
   @GetMapping("/logout")
-  public String logoutPageGet(org.springframework.ui.Model model) {
-    return "start-page";
+  public String logoutPageGet() {
+    return "logout";
+  }
+
+  @GetMapping("/welcome")
+  public String welcomePageGet() {
+    return "logout";
   }
 
   @GetMapping("/register")
-  public String registrationPageGet(Model model) {
+  public String registrationPageGet() {
     return "SignUp";
   }
 
   @GetMapping("/AnyException")
-  public String exceptionPage(Model model) {
+  public String exceptionPage() {
     return "Sorry";
   }
 
